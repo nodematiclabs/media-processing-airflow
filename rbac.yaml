@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: composer-kubernetes-operator-enablement
+  namespace: composer-user-workloads
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: composer-kubernetes-operator-enablement
+  namespace: composer-user-workloads
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: composer-kubernetes-operator-enablement
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {REPLACE ME}
